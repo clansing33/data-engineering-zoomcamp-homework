@@ -6,26 +6,13 @@ def create_taxi_events_sink_postgres(t_env):
     table_name = 'taxi_events'
     sink_ddl = f"""
         CREATE OR REPLACE TABLE {table_name} (
-            VendorID INTEGER,
             lpep_pickup_datetime VARCHAR,
             lpep_dropoff_datetime VARCHAR,
-            store_and_fwd_flag VARCHAR,
-            RatecodeID INTEGER ,
             PULocationID INTEGER,
             DOLocationID INTEGER,
             passenger_count INTEGER,
             trip_distance DOUBLE,
-            fare_amount DOUBLE,
-            extra DOUBLE,
-            mta_tax DOUBLE,
             tip_amount DOUBLE,
-            tolls_amount DOUBLE,
-            ehail_fee DOUBLE,
-            improvement_surcharge DOUBLE,
-            total_amount DOUBLE,
-            payment_type INTEGER,
-            trip_type INTEGER,
-            congestion_surcharge DOUBLE
         ) WITH (
             'connector' = 'jdbc',
             'url' = 'jdbc:postgresql://postgres:5432/postgres',
@@ -44,26 +31,12 @@ def create_events_source_kafka(t_env):
     pattern = "yyyy-MM-dd HH:mm:ss"
     source_ddl = f"""
         CREATE TABLE {table_name} (
-            VendorID INTEGER,
             lpep_pickup_datetime VARCHAR,
             lpep_dropoff_datetime VARCHAR,
-            store_and_fwd_flag VARCHAR,
-            RatecodeID INTEGER ,
             PULocationID INTEGER,
             DOLocationID INTEGER,
             passenger_count INTEGER,
-            trip_distance DOUBLE,
-            fare_amount DOUBLE,
-            extra DOUBLE,
-            mta_tax DOUBLE,
             tip_amount DOUBLE,
-            tolls_amount DOUBLE,
-            ehail_fee DOUBLE,
-            improvement_surcharge DOUBLE,
-            total_amount DOUBLE,
-            payment_type INTEGER,
-            trip_type INTEGER,
-            congestion_surcharge DOUBLE,
             pickup_timestamp AS TO_TIMESTAMP(lpep_pickup_datetime, '{pattern}'),
             WATERMARK FOR pickup_timestamp AS pickup_timestamp - INTERVAL '15' SECOND
         ) WITH (

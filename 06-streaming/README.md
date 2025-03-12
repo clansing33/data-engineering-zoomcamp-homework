@@ -40,3 +40,24 @@ True
 
 
 ### Question 4: Sending the Trip Data
+
+Send messages to redpanda(kafka)
+```bash
+cd 06-streaming/pyflink
+```
+
+load_taxi_data.py <- Run python file
+
+
+Use Flink SQL client (inside container)
+```bash
+docker ps | grep flink
+
+docker exec -it flink-jobmanager /bin/sh
+
+/opt/flink/bin/sql-client.sh
+
+```
+
+#### Answer
+took 40.07 seconds
